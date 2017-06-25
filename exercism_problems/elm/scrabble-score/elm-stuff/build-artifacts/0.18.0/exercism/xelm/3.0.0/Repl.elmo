@@ -1,0 +1,31 @@
+var _exercism$xelm$Repl$t_s_o_l = {ctor: '_Tuple0'};
+var _exercism$xelm$Repl$t2 = function (_p0) {
+	var _p1 = _p0;
+	return _p1._0;
+};
+var _exercism$xelm$Repl$l1 = {
+	ctor: '::',
+	_0: _elm_lang$core$Native_Utils.chr('A'),
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('B'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$core$Native_Utils.chr('C'),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _exercism$xelm$Repl$t1 = {ctor: '_Tuple2', _0: 1, _1: _exercism$xelm$Repl$l1};
+var _exercism$xelm$Repl$d = _elm_lang$core$Dict$empty;
+var _exercism$xelm$Repl$assignScore = F2(
+	function (p, lst) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (x) {
+				return {ctor: '_Tuple2', _0: x, _1: p};
+			},
+			lst);
+	});
+var _exercism$xelm$Repl$d1 = A2(_exercism$xelm$Repl$assignScore, 1, _exercism$xelm$Repl$l1);
+var _exercism$xelm$Repl$d_e_l_t_r_o_n_3_0_3_0 = _elm_lang$core$Dict$fromList(_exercism$xelm$Repl$d1);

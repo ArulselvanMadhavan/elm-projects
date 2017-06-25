@@ -1,0 +1,57 @@
+var _exercism$xelm$Anagram$filterSameWord = F2(
+	function (str, options) {
+		return A2(
+			_elm_lang$core$List$filter,
+			function (x) {
+				return !_elm_lang$core$Native_Utils.eq(
+					_elm_lang$core$String$toLower(x),
+					str);
+			},
+			options);
+	});
+var _exercism$xelm$Anagram$sortWord = function (str) {
+	return _elm_lang$core$String$fromList(
+		_elm_lang$core$List$sort(
+			_elm_lang$core$String$toList(
+				_elm_lang$core$String$toLower(str))));
+};
+var _exercism$xelm$Anagram$filterAnagrams = F2(
+	function (word, options) {
+		var sortedWord = _exercism$xelm$Anagram$sortWord(word);
+		return A2(
+			_elm_lang$core$List$filter,
+			function (x) {
+				return _elm_lang$core$Native_Utils.eq(
+					_exercism$xelm$Anagram$sortWord(x),
+					sortedWord);
+			},
+			options);
+	});
+var _exercism$xelm$Anagram$filterBasedOnLength = F2(
+	function (wordLength, options) {
+		return A2(
+			_elm_lang$core$List$filter,
+			function (x) {
+				return _elm_lang$core$Native_Utils.eq(
+					_elm_lang$core$String$length(x),
+					wordLength);
+			},
+			options);
+	});
+var _exercism$xelm$Anagram$detect = F2(
+	function (str, options) {
+		var word = _elm_lang$core$String$toLower(str);
+		return A2(
+			_exercism$xelm$Anagram$filterAnagrams,
+			word,
+			A2(
+				_elm_lang$core$Debug$log,
+				'After Filtering',
+				A2(
+					_exercism$xelm$Anagram$filterSameWord,
+					word,
+					A2(
+						_exercism$xelm$Anagram$filterBasedOnLength,
+						_elm_lang$core$String$length(word),
+						options))));
+	});

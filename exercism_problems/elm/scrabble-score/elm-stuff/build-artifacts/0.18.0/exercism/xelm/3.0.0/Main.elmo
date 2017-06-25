@@ -1,0 +1,153 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$Test$describe,
+	'Grains',
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_community$elm_test$Test$test,
+			'lowercase letter',
+			function (_p0) {
+				var _p1 = _p0;
+				return A2(
+					_elm_community$elm_test$Expect$equal,
+					1,
+					_exercism$xelm$ScrabbleScore$scoreWord('a'));
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_community$elm_test$Test$test,
+				'uppercase letter',
+				function (_p2) {
+					var _p3 = _p2;
+					return A2(
+						_elm_community$elm_test$Expect$equal,
+						1,
+						_exercism$xelm$ScrabbleScore$scoreWord('A'));
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_community$elm_test$Test$test,
+					'valuable letter',
+					function (_p4) {
+						var _p5 = _p4;
+						return A2(
+							_elm_community$elm_test$Expect$equal,
+							4,
+							_exercism$xelm$ScrabbleScore$scoreWord('f'));
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_community$elm_test$Test$test,
+						'short word',
+						function (_p6) {
+							var _p7 = _p6;
+							return A2(
+								_elm_community$elm_test$Expect$equal,
+								2,
+								_exercism$xelm$ScrabbleScore$scoreWord('at'));
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_community$elm_test$Test$test,
+							'short, valuable word',
+							function (_p8) {
+								var _p9 = _p8;
+								return A2(
+									_elm_community$elm_test$Expect$equal,
+									12,
+									_exercism$xelm$ScrabbleScore$scoreWord('zoo'));
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_community$elm_test$Test$test,
+								'medium word',
+								function (_p10) {
+									var _p11 = _p10;
+									return A2(
+										_elm_community$elm_test$Expect$equal,
+										6,
+										_exercism$xelm$ScrabbleScore$scoreWord('street'));
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_community$elm_test$Test$test,
+									'medium, valuable word',
+									function (_p12) {
+										var _p13 = _p12;
+										return A2(
+											_elm_community$elm_test$Expect$equal,
+											22,
+											_exercism$xelm$ScrabbleScore$scoreWord('quirky'));
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_community$elm_test$Test$test,
+										'long, mixed-case word',
+										function (_p14) {
+											var _p15 = _p14;
+											return A2(
+												_elm_community$elm_test$Expect$equal,
+												41,
+												_exercism$xelm$ScrabbleScore$scoreWord('OxyphenButazone'));
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_community$elm_test$Test$test,
+											'english-like word',
+											function (_p16) {
+												var _p17 = _p16;
+												return A2(
+													_elm_community$elm_test$Expect$equal,
+													8,
+													_exercism$xelm$ScrabbleScore$scoreWord('pinata'));
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_community$elm_test$Test$test,
+												'non-english letter is not scored',
+												function (_p18) {
+													var _p19 = _p18;
+													return A2(
+														_elm_community$elm_test$Expect$equal,
+														7,
+														_exercism$xelm$ScrabbleScore$scoreWord('piñata'));
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_community$elm_test$Test$test,
+													'empty input',
+													function (_p20) {
+														var _p21 = _p20;
+														return A2(
+															_elm_community$elm_test$Expect$equal,
+															0,
+															_exercism$xelm$ScrabbleScore$scoreWord(''));
+													}),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _exercism$xelm$Main$emit = _elm_lang$core$Native_Platform.outgoingPort(
+	'emit',
+	function (v) {
+		return [v._0, v._1];
+	});
+var _exercism$xelm$Main$main = A2(_rtfeldman$node_test_runner$Test_Runner_Node$run, _exercism$xelm$Main$emit, _exercism$xelm$Main$tests)(_elm_lang$core$Json_Decode$value);

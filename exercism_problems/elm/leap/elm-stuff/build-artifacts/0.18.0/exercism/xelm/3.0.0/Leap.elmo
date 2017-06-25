@@ -1,0 +1,9 @@
+var _exercism$xelm$Leap$isLeapYear = function (year) {
+	return (_elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics$rem, year, 4),
+		0) && (!_elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics$rem, year, 100),
+		0))) || _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics$rem, year, 400),
+		0);
+};

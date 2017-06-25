@@ -1,0 +1,44 @@
+var _exercism$xelm$Pangram$isValidChar = F2(
+	function (c, soFar) {
+		return ((_elm_lang$core$Native_Utils.cmp(
+			_elm_lang$core$Char$toCode(c),
+			122) < 1) && (_elm_lang$core$Native_Utils.cmp(
+			_elm_lang$core$Char$toCode(c),
+			97) > -1)) ? A3(
+			_elm_lang$core$Array$set,
+			_elm_lang$core$Char$toCode(c) - 97,
+			true,
+			soFar) : A3(
+			_elm_lang$core$Array$set,
+			_elm_lang$core$Char$toCode(c) - 97,
+			false,
+			soFar);
+	});
+var _exercism$xelm$Pangram$checkCharsForPangram = function (str) {
+	return A3(
+		_elm_lang$core$Array$foldl,
+		F2(
+			function (x, y) {
+				return x && y;
+			}),
+		true,
+		A3(
+			_elm_lang$core$List$foldl,
+			_exercism$xelm$Pangram$isValidChar,
+			A2(
+				_elm_lang$core$Array$initialize,
+				26,
+				_elm_lang$core$Basics$always(false)),
+			A2(
+				_elm_lang$core$List$map,
+				_elm_lang$core$Char$toLower,
+				_elm_lang$core$String$toList(str))));
+};
+var _exercism$xelm$Pangram$hasValidLength = function (str) {
+	return (_elm_lang$core$Native_Utils.cmp(
+		_elm_lang$core$String$length(str),
+		26) < 0) ? false : true;
+};
+var _exercism$xelm$Pangram$isPangram = function (str) {
+	return _exercism$xelm$Pangram$hasValidLength(str) ? _exercism$xelm$Pangram$checkCharsForPangram(str) : false;
+};

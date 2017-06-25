@@ -1,0 +1,61 @@
+var _exercism$xelm$Triangle$checkInequality = function (sides) {
+	var _p0 = sides;
+	if ((((_p0.ctor === '::') && (_p0._1.ctor === '::')) && (_p0._1._1.ctor === '::')) && (_p0._1._1._1.ctor === '[]')) {
+		return (_elm_lang$core$Native_Utils.cmp(_p0._0 + _p0._1._0, _p0._1._1._0) > 0) ? _elm_lang$core$Result$Ok(sides) : _elm_lang$core$Result$Err('Violates inequality');
+	} else {
+		return _elm_lang$core$Result$Err('Violates inequality');
+	}
+};
+var _exercism$xelm$Triangle$checkValidity = function (sides) {
+	var _p1 = A2(
+		_elm_lang$core$List$filter,
+		function (a) {
+			return _elm_lang$core$Native_Utils.cmp(a, 0) < 1;
+		},
+		sides);
+	if (_p1.ctor === '[]') {
+		return _elm_lang$core$Result$Ok(
+			_elm_lang$core$List$sort(sides));
+	} else {
+		return _elm_lang$core$Result$Err('Invalid lengths');
+	}
+};
+var _exercism$xelm$Triangle$version = 2;
+var _exercism$xelm$Triangle$Scalene = {ctor: 'Scalene'};
+var _exercism$xelm$Triangle$Isosceles = {ctor: 'Isosceles'};
+var _exercism$xelm$Triangle$Equilateral = {ctor: 'Equilateral'};
+var _exercism$xelm$Triangle$findTriangleType = function (sides) {
+	var _p2 = _elm_lang$core$Set$size(
+		_elm_lang$core$Set$fromList(sides));
+	switch (_p2) {
+		case 1:
+			return _elm_lang$core$Result$Ok(_exercism$xelm$Triangle$Equilateral);
+		case 2:
+			return _elm_lang$core$Result$Ok(_exercism$xelm$Triangle$Isosceles);
+		default:
+			return _elm_lang$core$Result$Ok(_exercism$xelm$Triangle$Scalene);
+	}
+};
+var _exercism$xelm$Triangle$triangleKind = F3(
+	function (a, b, c) {
+		var sides = {
+			ctor: '::',
+			_0: a,
+			_1: {
+				ctor: '::',
+				_0: b,
+				_1: {
+					ctor: '::',
+					_0: c,
+					_1: {ctor: '[]'}
+				}
+			}
+		};
+		return A2(
+			_elm_lang$core$Result$andThen,
+			_exercism$xelm$Triangle$findTriangleType,
+			A2(
+				_elm_lang$core$Result$andThen,
+				_exercism$xelm$Triangle$checkInequality,
+				_exercism$xelm$Triangle$checkValidity(sides)));
+	});

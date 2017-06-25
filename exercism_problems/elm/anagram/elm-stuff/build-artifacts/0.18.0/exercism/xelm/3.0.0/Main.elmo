@@ -1,0 +1,582 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$Test$describe,
+	'Anagram',
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_community$elm_test$Test$test,
+			'no matches',
+			function (_p0) {
+				var _p1 = _p0;
+				return A2(
+					_elm_community$elm_test$Expect$equal,
+					{ctor: '[]'},
+					A2(
+						_exercism$xelm$Anagram$detect,
+						'diaper',
+						{
+							ctor: '::',
+							_0: 'hello',
+							_1: {
+								ctor: '::',
+								_0: 'world',
+								_1: {
+									ctor: '::',
+									_0: 'zombies',
+									_1: {
+										ctor: '::',
+										_0: 'pants',
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}));
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_community$elm_test$Test$test,
+				'detects simple anagram',
+				function (_p2) {
+					var _p3 = _p2;
+					return A2(
+						_elm_community$elm_test$Expect$equal,
+						{
+							ctor: '::',
+							_0: 'tan',
+							_1: {ctor: '[]'}
+						},
+						A2(
+							_exercism$xelm$Anagram$detect,
+							'ant',
+							{
+								ctor: '::',
+								_0: 'tan',
+								_1: {
+									ctor: '::',
+									_0: 'stand',
+									_1: {
+										ctor: '::',
+										_0: 'at',
+										_1: {ctor: '[]'}
+									}
+								}
+							}));
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_community$elm_test$Test$test,
+					'does not detect false positives',
+					function (_p4) {
+						var _p5 = _p4;
+						return A2(
+							_elm_community$elm_test$Expect$equal,
+							{ctor: '[]'},
+							A2(
+								_exercism$xelm$Anagram$detect,
+								'galea',
+								{
+									ctor: '::',
+									_0: 'eagle',
+									_1: {ctor: '[]'}
+								}));
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_community$elm_test$Test$test,
+						'detects multiple anagrams',
+						function (_p6) {
+							var _p7 = _p6;
+							return A2(
+								_elm_community$elm_test$Expect$equal,
+								{
+									ctor: '::',
+									_0: 'stream',
+									_1: {
+										ctor: '::',
+										_0: 'maters',
+										_1: {ctor: '[]'}
+									}
+								},
+								A2(
+									_exercism$xelm$Anagram$detect,
+									'master',
+									{
+										ctor: '::',
+										_0: 'stream',
+										_1: {
+											ctor: '::',
+											_0: 'pigeon',
+											_1: {
+												ctor: '::',
+												_0: 'maters',
+												_1: {ctor: '[]'}
+											}
+										}
+									}));
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_community$elm_test$Test$test,
+							'does not detect anagram subsets',
+							function (_p8) {
+								var _p9 = _p8;
+								return A2(
+									_elm_community$elm_test$Expect$equal,
+									{ctor: '[]'},
+									A2(
+										_exercism$xelm$Anagram$detect,
+										'good',
+										{
+											ctor: '::',
+											_0: 'dog',
+											_1: {
+												ctor: '::',
+												_0: 'goody',
+												_1: {ctor: '[]'}
+											}
+										}));
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_community$elm_test$Test$test,
+								'detects anagram',
+								function (_p10) {
+									var _p11 = _p10;
+									return A2(
+										_elm_community$elm_test$Expect$equal,
+										{
+											ctor: '::',
+											_0: 'inlets',
+											_1: {ctor: '[]'}
+										},
+										A2(
+											_exercism$xelm$Anagram$detect,
+											'listen',
+											{
+												ctor: '::',
+												_0: 'enlists',
+												_1: {
+													ctor: '::',
+													_0: 'google',
+													_1: {
+														ctor: '::',
+														_0: 'inlets',
+														_1: {
+															ctor: '::',
+															_0: 'banana',
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}));
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_community$elm_test$Test$test,
+									'detects multiple anagrams',
+									function (_p12) {
+										var _p13 = _p12;
+										return A2(
+											_elm_community$elm_test$Expect$equal,
+											{
+												ctor: '::',
+												_0: 'gallery',
+												_1: {
+													ctor: '::',
+													_0: 'regally',
+													_1: {
+														ctor: '::',
+														_0: 'largely',
+														_1: {ctor: '[]'}
+													}
+												}
+											},
+											A2(
+												_exercism$xelm$Anagram$detect,
+												'allergy',
+												{
+													ctor: '::',
+													_0: 'gallery',
+													_1: {
+														ctor: '::',
+														_0: 'ballerina',
+														_1: {
+															ctor: '::',
+															_0: 'regally',
+															_1: {
+																ctor: '::',
+																_0: 'clergy',
+																_1: {
+																	ctor: '::',
+																	_0: 'largely',
+																	_1: {
+																		ctor: '::',
+																		_0: 'leading',
+																		_1: {ctor: '[]'}
+																	}
+																}
+															}
+														}
+													}
+												}));
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_community$elm_test$Test$test,
+										'does not detect indentical words',
+										function (_p14) {
+											var _p15 = _p14;
+											return A2(
+												_elm_community$elm_test$Expect$equal,
+												{
+													ctor: '::',
+													_0: 'cron',
+													_1: {ctor: '[]'}
+												},
+												A2(
+													_exercism$xelm$Anagram$detect,
+													'corn',
+													{
+														ctor: '::',
+														_0: 'corn',
+														_1: {
+															ctor: '::',
+															_0: 'dark',
+															_1: {
+																ctor: '::',
+																_0: 'Corn',
+																_1: {
+																	ctor: '::',
+																	_0: 'rank',
+																	_1: {
+																		ctor: '::',
+																		_0: 'CORN',
+																		_1: {
+																			ctor: '::',
+																			_0: 'cron',
+																			_1: {
+																				ctor: '::',
+																				_0: 'park',
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}));
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_community$elm_test$Test$test,
+											'does not detect non-anagrams with identical checksum',
+											function (_p16) {
+												var _p17 = _p16;
+												return A2(
+													_elm_community$elm_test$Expect$equal,
+													{ctor: '[]'},
+													A2(
+														_exercism$xelm$Anagram$detect,
+														'mass',
+														{
+															ctor: '::',
+															_0: 'last',
+															_1: {ctor: '[]'}
+														}));
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_community$elm_test$Test$test,
+												'detects anagrams case-insensitively',
+												function (_p18) {
+													var _p19 = _p18;
+													return A2(
+														_elm_community$elm_test$Expect$equal,
+														{
+															ctor: '::',
+															_0: 'Carthorse',
+															_1: {ctor: '[]'}
+														},
+														A2(
+															_exercism$xelm$Anagram$detect,
+															'Orchestra',
+															{
+																ctor: '::',
+																_0: 'cashregister',
+																_1: {
+																	ctor: '::',
+																	_0: 'Carthorse',
+																	_1: {
+																		ctor: '::',
+																		_0: 'radishes',
+																		_1: {ctor: '[]'}
+																	}
+																}
+															}));
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_community$elm_test$Test$test,
+													'detects anagrams using case-insensitive subject',
+													function (_p20) {
+														var _p21 = _p20;
+														return A2(
+															_elm_community$elm_test$Expect$equal,
+															{
+																ctor: '::',
+																_0: 'carthorse',
+																_1: {ctor: '[]'}
+															},
+															A2(
+																_exercism$xelm$Anagram$detect,
+																'Orchestra',
+																{
+																	ctor: '::',
+																	_0: 'cashregister',
+																	_1: {
+																		ctor: '::',
+																		_0: 'carthorse',
+																		_1: {
+																			ctor: '::',
+																			_0: 'radishes',
+																			_1: {ctor: '[]'}
+																		}
+																	}
+																}));
+													}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_community$elm_test$Test$test,
+														'detects anagrams using case-insensitve possible matches',
+														function (_p22) {
+															var _p23 = _p22;
+															return A2(
+																_elm_community$elm_test$Expect$equal,
+																{
+																	ctor: '::',
+																	_0: 'Carthorse',
+																	_1: {ctor: '[]'}
+																},
+																A2(
+																	_exercism$xelm$Anagram$detect,
+																	'orchestra',
+																	{
+																		ctor: '::',
+																		_0: 'cashregister',
+																		_1: {
+																			ctor: '::',
+																			_0: 'Carthorse',
+																			_1: {
+																				ctor: '::',
+																				_0: 'radishes',
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	}));
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_community$elm_test$Test$test,
+															'does not detect a word as its own anagram',
+															function (_p24) {
+																var _p25 = _p24;
+																return A2(
+																	_elm_community$elm_test$Expect$equal,
+																	{ctor: '[]'},
+																	A2(
+																		_exercism$xelm$Anagram$detect,
+																		'banana',
+																		{
+																			ctor: '::',
+																			_0: 'Banana',
+																			_1: {ctor: '[]'}
+																		}));
+															}),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_community$elm_test$Test$test,
+																'does not detect a anagram if the original word is repeated',
+																function (_p26) {
+																	var _p27 = _p26;
+																	return A2(
+																		_elm_community$elm_test$Expect$equal,
+																		{ctor: '[]'},
+																		A2(
+																			_exercism$xelm$Anagram$detect,
+																			'go',
+																			{
+																				ctor: '::',
+																				_0: 'go Go GO',
+																				_1: {ctor: '[]'}
+																			}));
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_community$elm_test$Test$test,
+																	'anagrams must use all letters exactly once',
+																	function (_p28) {
+																		var _p29 = _p28;
+																		return A2(
+																			_elm_community$elm_test$Expect$equal,
+																			{ctor: '[]'},
+																			A2(
+																				_exercism$xelm$Anagram$detect,
+																				'tapper',
+																				{
+																					ctor: '::',
+																					_0: 'patter',
+																					_1: {ctor: '[]'}
+																				}));
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_community$elm_test$Test$test,
+																		'eliminates anagrams with the same checksum',
+																		function (_p30) {
+																			var _p31 = _p30;
+																			return A2(
+																				_elm_community$elm_test$Expect$equal,
+																				{ctor: '[]'},
+																				A2(
+																					_exercism$xelm$Anagram$detect,
+																					'mass',
+																					{
+																						ctor: '::',
+																						_0: 'last',
+																						_1: {ctor: '[]'}
+																					}));
+																		}),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_elm_community$elm_test$Test$test,
+																			'detects unicode anagrams',
+																			function (_p32) {
+																				var _p33 = _p32;
+																				return A2(
+																					_elm_community$elm_test$Expect$equal,
+																					{
+																						ctor: '::',
+																						_0: 'ΒΓΑ',
+																						_1: {
+																							ctor: '::',
+																							_0: 'γβα',
+																							_1: {ctor: '[]'}
+																						}
+																					},
+																					A2(
+																						_exercism$xelm$Anagram$detect,
+																						'ΑΒΓ',
+																						{
+																							ctor: '::',
+																							_0: 'ΒΓΑ',
+																							_1: {
+																								ctor: '::',
+																								_0: 'ΒΓΔ',
+																								_1: {
+																									ctor: '::',
+																									_0: 'γβα',
+																									_1: {ctor: '[]'}
+																								}
+																							}
+																						}));
+																			}),
+																		_1: {
+																			ctor: '::',
+																			_0: A2(
+																				_elm_community$elm_test$Test$test,
+																				'eliminates misleading unicode anagrams',
+																				function (_p34) {
+																					var _p35 = _p34;
+																					return A2(
+																						_elm_community$elm_test$Expect$equal,
+																						{ctor: '[]'},
+																						A2(
+																							_exercism$xelm$Anagram$detect,
+																							'ΑΒΓ',
+																							{
+																								ctor: '::',
+																								_0: 'ABΓ',
+																								_1: {ctor: '[]'}
+																							}));
+																				}),
+																			_1: {
+																				ctor: '::',
+																				_0: A2(
+																					_elm_community$elm_test$Test$test,
+																					'capital word is not own anagram',
+																					function (_p36) {
+																						var _p37 = _p36;
+																						return A2(
+																							_elm_community$elm_test$Expect$equal,
+																							{ctor: '[]'},
+																							A2(
+																								_exercism$xelm$Anagram$detect,
+																								'BANANA',
+																								{
+																									ctor: '::',
+																									_0: 'Banana',
+																									_1: {ctor: '[]'}
+																								}));
+																					}),
+																				_1: {
+																					ctor: '::',
+																					_0: A2(
+																						_elm_community$elm_test$Test$test,
+																						'anagrams must use all letters exactly once',
+																						function (_p38) {
+																							var _p39 = _p38;
+																							return A2(
+																								_elm_community$elm_test$Expect$equal,
+																								{ctor: '[]'},
+																								A2(
+																									_exercism$xelm$Anagram$detect,
+																									'patter',
+																									{
+																										ctor: '::',
+																										_0: 'tapper',
+																										_1: {ctor: '[]'}
+																									}));
+																						}),
+																					_1: {ctor: '[]'}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _exercism$xelm$Main$emit = _elm_lang$core$Native_Platform.outgoingPort(
+	'emit',
+	function (v) {
+		return [v._0, v._1];
+	});
+var _exercism$xelm$Main$main = A2(_rtfeldman$node_test_runner$Test_Runner_Node$run, _exercism$xelm$Main$emit, _exercism$xelm$Main$tests)(_elm_lang$core$Json_Decode$value);

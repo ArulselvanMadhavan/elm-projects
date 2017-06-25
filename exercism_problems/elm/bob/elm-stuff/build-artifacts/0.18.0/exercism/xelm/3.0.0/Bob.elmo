@@ -1,0 +1,21 @@
+var _exercism$xelm$Bob$isWhitespace = function (message) {
+	return _elm_lang$core$String$isEmpty(
+		_elm_lang$core$String$trim(message));
+};
+var _exercism$xelm$Bob$isQuestion = function (message) {
+	return A2(_elm_lang$core$String$endsWith, '?', message);
+};
+var _exercism$xelm$Bob$isAnAlphabet = function ($char) {
+	return _elm_lang$core$Char$isUpper($char) || _elm_lang$core$Char$isLower($char);
+};
+var _exercism$xelm$Bob$filterAlphabets = function (chars) {
+	return A2(_elm_lang$core$List$filter, _exercism$xelm$Bob$isAnAlphabet, chars);
+};
+var _exercism$xelm$Bob$isShouting = function (message) {
+	var chars = _exercism$xelm$Bob$filterAlphabets(
+		_elm_lang$core$String$toList(message));
+	return (!_elm_lang$core$List$isEmpty(chars)) && A2(_elm_lang$core$List$all, _elm_lang$core$Char$isUpper, chars);
+};
+var _exercism$xelm$Bob$hey = function (message) {
+	return _exercism$xelm$Bob$isWhitespace(message) ? 'Fine. Be that way!' : (_exercism$xelm$Bob$isShouting(message) ? 'Whoa, chill out!' : (_exercism$xelm$Bob$isQuestion(message) ? 'Sure.' : 'Whatever.'));
+};

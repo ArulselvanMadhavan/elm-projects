@@ -1,0 +1,90 @@
+var _exercism$xelm$Raindrops$concatDrops = F2(
+	function (drop, soFar) {
+		var _p0 = drop;
+		if (_p0.ctor === 'Just') {
+			return A2(_elm_lang$core$Basics_ops['++'], soFar, _p0._0);
+		} else {
+			return soFar;
+		}
+	});
+var _exercism$xelm$Raindrops$result = F2(
+	function (num, drops) {
+		var _p1 = A3(_elm_lang$core$List$foldl, _exercism$xelm$Raindrops$concatDrops, '', drops);
+		if (_p1 === '') {
+			return _elm_lang$core$Basics$toString(num);
+		} else {
+			return _p1;
+		}
+	});
+var _exercism$xelm$Raindrops$rainDrop = function (factor) {
+	var _p2 = factor;
+	switch (_p2) {
+		case 3:
+			return _elm_lang$core$Maybe$Just('Pling');
+		case 5:
+			return _elm_lang$core$Maybe$Just('Plang');
+		case 7:
+			return _elm_lang$core$Maybe$Just('Plong');
+		default:
+			return _elm_lang$core$Maybe$Nothing;
+	}
+};
+var _exercism$xelm$Raindrops$isDivisible = F2(
+	function (x, y) {
+		return _elm_lang$core$Native_Utils.eq(
+			A2(_elm_lang$core$Basics$rem, x, y),
+			0);
+	});
+var _exercism$xelm$Raindrops$findPrimeFactors = F2(
+	function (n, primes) {
+		var _p3 = A2(
+			_elm_lang$core$List$filter,
+			_exercism$xelm$Raindrops$isDivisible(n),
+			primes);
+		if (_p3.ctor === '[]') {
+			return {
+				ctor: '::',
+				_0: n,
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return _p3;
+		}
+	});
+var _exercism$xelm$Raindrops$isNotDivisible = F2(
+	function (x, y) {
+		return !_elm_lang$core$Native_Utils.eq(
+			A2(_elm_lang$core$Basics$rem, y, x),
+			0);
+	});
+var _exercism$xelm$Raindrops$findAllPrimes = function (sieve) {
+	var _p4 = sieve;
+	if (_p4.ctor === '::') {
+		var _p5 = _p4._0;
+		return {
+			ctor: '::',
+			_0: _p5,
+			_1: _exercism$xelm$Raindrops$findAllPrimes(
+				A2(
+					_elm_lang$core$List$filter,
+					_exercism$xelm$Raindrops$isNotDivisible(_p5),
+					_p4._1))
+		};
+	} else {
+		return {ctor: '[]'};
+	}
+};
+var _exercism$xelm$Raindrops$initializeList = function (n) {
+	return A2(_elm_lang$core$List$range, 2, n);
+};
+var _exercism$xelm$Raindrops$raindrops = function (num) {
+	var factors = A2(
+		_exercism$xelm$Raindrops$findPrimeFactors,
+		num,
+		_exercism$xelm$Raindrops$findAllPrimes(
+			_exercism$xelm$Raindrops$initializeList(num)));
+	return A2(
+		_exercism$xelm$Raindrops$result,
+		num,
+		A2(_elm_lang$core$List$map, _exercism$xelm$Raindrops$rainDrop, factors));
+};

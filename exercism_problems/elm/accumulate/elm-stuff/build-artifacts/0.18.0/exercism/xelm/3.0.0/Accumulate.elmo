@@ -1,0 +1,13 @@
+var _exercism$xelm$Accumulate$accumulate = F2(
+	function (f, lst) {
+		var _p0 = lst;
+		if (_p0.ctor === '::') {
+			return {
+				ctor: '::',
+				_0: f(_p0._0),
+				_1: A2(_exercism$xelm$Accumulate$accumulate, f, _p0._1)
+			};
+		} else {
+			return {ctor: '[]'};
+		}
+	});

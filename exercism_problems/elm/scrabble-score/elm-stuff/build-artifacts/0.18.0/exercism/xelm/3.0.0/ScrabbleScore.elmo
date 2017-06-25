@@ -1,0 +1,201 @@
+var _exercism$xelm$ScrabbleScore$getScore = F2(
+	function (scoreSheet, c) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			A2(_elm_lang$core$Dict$get, c, scoreSheet));
+	});
+var _exercism$xelm$ScrabbleScore$getScores = F2(
+	function (scoreSheet, chars) {
+		return A2(
+			_elm_lang$core$List$map,
+			_exercism$xelm$ScrabbleScore$getScore(scoreSheet),
+			chars);
+	});
+var _exercism$xelm$ScrabbleScore$assignScores = function (_p0) {
+	var _p1 = _p0;
+	return A2(
+		_elm_lang$core$List$map,
+		function (x) {
+			return {ctor: '_Tuple2', _0: x, _1: _p1._0};
+		},
+		_p1._1);
+};
+var _exercism$xelm$ScrabbleScore$tenPoints = {
+	ctor: '_Tuple2',
+	_0: 10,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('Q'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$core$Native_Utils.chr('Z'),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _exercism$xelm$ScrabbleScore$eightPoints = {
+	ctor: '_Tuple2',
+	_0: 8,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('J'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$core$Native_Utils.chr('X'),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _exercism$xelm$ScrabbleScore$fivePoints = {
+	ctor: '_Tuple2',
+	_0: 5,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('K'),
+		_1: {ctor: '[]'}
+	}
+};
+var _exercism$xelm$ScrabbleScore$fourPoints = {
+	ctor: '_Tuple2',
+	_0: 4,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('F'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$core$Native_Utils.chr('H'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$core$Native_Utils.chr('V'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Native_Utils.chr('W'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('Y'),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	}
+};
+var _exercism$xelm$ScrabbleScore$threePoints = {
+	ctor: '_Tuple2',
+	_0: 3,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('B'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$core$Native_Utils.chr('C'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$core$Native_Utils.chr('M'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Native_Utils.chr('P'),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _exercism$xelm$ScrabbleScore$twoPoints = {
+	ctor: '_Tuple2',
+	_0: 2,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('D'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$core$Native_Utils.chr('G'),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _exercism$xelm$ScrabbleScore$onePoints = {
+	ctor: '_Tuple2',
+	_0: 1,
+	_1: {
+		ctor: '::',
+		_0: _elm_lang$core$Native_Utils.chr('A'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$core$Native_Utils.chr('E'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$core$Native_Utils.chr('I'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Native_Utils.chr('O'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('U'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('L'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.chr('N'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Native_Utils.chr('R'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Native_Utils.chr('S'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Native_Utils.chr('T'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _exercism$xelm$ScrabbleScore$scoreSheet = {
+	ctor: '::',
+	_0: _exercism$xelm$ScrabbleScore$onePoints,
+	_1: {
+		ctor: '::',
+		_0: _exercism$xelm$ScrabbleScore$twoPoints,
+		_1: {
+			ctor: '::',
+			_0: _exercism$xelm$ScrabbleScore$threePoints,
+			_1: {
+				ctor: '::',
+				_0: _exercism$xelm$ScrabbleScore$fourPoints,
+				_1: {
+					ctor: '::',
+					_0: _exercism$xelm$ScrabbleScore$fivePoints,
+					_1: {
+						ctor: '::',
+						_0: _exercism$xelm$ScrabbleScore$eightPoints,
+						_1: {
+							ctor: '::',
+							_0: _exercism$xelm$ScrabbleScore$tenPoints,
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _exercism$xelm$ScrabbleScore$scoreWord = function (str) {
+	var scores = _elm_lang$core$Dict$fromList(
+		A2(_elm_lang$core$List$concatMap, _exercism$xelm$ScrabbleScore$assignScores, _exercism$xelm$ScrabbleScore$scoreSheet));
+	return _elm_lang$core$List$sum(
+		A2(
+			_exercism$xelm$ScrabbleScore$getScores,
+			scores,
+			_elm_lang$core$String$toList(
+				_elm_lang$core$String$toUpper(str))));
+};

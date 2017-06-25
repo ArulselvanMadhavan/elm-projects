@@ -1,0 +1,140 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$Test$describe,
+	'Pangram',
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_community$elm_test$Test$test,
+			'sentence empty',
+			function (_p0) {
+				var _p1 = _p0;
+				return A2(
+					_elm_community$elm_test$Expect$equal,
+					false,
+					_exercism$xelm$Pangram$isPangram(''));
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_community$elm_test$Test$test,
+				'pangram with only lower case',
+				function (_p2) {
+					var _p3 = _p2;
+					return A2(
+						_elm_community$elm_test$Expect$equal,
+						true,
+						_exercism$xelm$Pangram$isPangram('the quick brown fox jumps over the lazy dog'));
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_community$elm_test$Test$test,
+					'missing character \'x\'',
+					function (_p4) {
+						var _p5 = _p4;
+						return A2(
+							_elm_community$elm_test$Expect$equal,
+							false,
+							_exercism$xelm$Pangram$isPangram('a quick movement of the enemy will jeopardize five gunboats'));
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_community$elm_test$Test$test,
+						'another missing character \'x\'',
+						function (_p6) {
+							var _p7 = _p6;
+							return A2(
+								_elm_community$elm_test$Expect$equal,
+								false,
+								_exercism$xelm$Pangram$isPangram('the quick brown fish jumps over the lazy dog'));
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_community$elm_test$Test$test,
+							'pangram with underscores',
+							function (_p8) {
+								var _p9 = _p8;
+								return A2(
+									_elm_community$elm_test$Expect$equal,
+									true,
+									_exercism$xelm$Pangram$isPangram('the_quick_brown_fox_jumps_over_the_lazy_dog'));
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_community$elm_test$Test$test,
+								'pangram with numbers',
+								function (_p10) {
+									var _p11 = _p10;
+									return A2(
+										_elm_community$elm_test$Expect$equal,
+										true,
+										_exercism$xelm$Pangram$isPangram('the 1 quick brown fox jumps over the 2 lazy dogs'));
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_community$elm_test$Test$test,
+									'missing letters replaced by numbers',
+									function (_p12) {
+										var _p13 = _p12;
+										return A2(
+											_elm_community$elm_test$Expect$equal,
+											false,
+											_exercism$xelm$Pangram$isPangram('7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog'));
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_community$elm_test$Test$test,
+										'pangram with mixed case and punctuation',
+										function (_p14) {
+											var _p15 = _p14;
+											return A2(
+												_elm_community$elm_test$Expect$equal,
+												true,
+												_exercism$xelm$Pangram$isPangram('\"Five quacking Zephyrs jolt my wax bed.\"'));
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_community$elm_test$Test$test,
+											'pangram with non ascii characters',
+											function (_p16) {
+												var _p17 = _p16;
+												return A2(
+													_elm_community$elm_test$Expect$equal,
+													true,
+													_exercism$xelm$Pangram$isPangram('Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich.'));
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_community$elm_test$Test$test,
+												'Pangram with Edge cases',
+												function (_p18) {
+													var _p19 = _p18;
+													return A2(
+														_elm_community$elm_test$Expect$equal,
+														false,
+														_exercism$xelm$Pangram$isPangram('@\'`[{ZZZZZZAAAAAAAAAAsadasdasdasdqweqweqweuoiyeoquyrqnmbanxb,gakjshdsadylioypqyweoiwqe8qwyeipqwuoyetqwoey'));
+												}),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+var _exercism$xelm$Main$emit = _elm_lang$core$Native_Platform.outgoingPort(
+	'emit',
+	function (v) {
+		return [v._0, v._1];
+	});
+var _exercism$xelm$Main$main = A2(_rtfeldman$node_test_runner$Test_Runner_Node$run, _exercism$xelm$Main$emit, _exercism$xelm$Main$tests)(_elm_lang$core$Json_Decode$value);

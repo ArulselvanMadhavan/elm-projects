@@ -1,0 +1,133 @@
+var _exercism$xelm$Main$square = function (x) {
+	return x * x;
+};
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$Test$describe,
+	'Accumulate',
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_community$elm_test$Test$test,
+			'[]] Accumulate',
+			function (_p0) {
+				var _p1 = _p0;
+				return A2(
+					_elm_community$elm_test$Expect$equal,
+					{ctor: '[]'},
+					A2(
+						_exercism$xelm$Accumulate$accumulate,
+						_exercism$xelm$Main$square,
+						{ctor: '[]'}));
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_community$elm_test$Test$test,
+				'square Accumulate',
+				function (_p2) {
+					var _p3 = _p2;
+					return A2(
+						_elm_community$elm_test$Expect$equal,
+						{
+							ctor: '::',
+							_0: 1,
+							_1: {
+								ctor: '::',
+								_0: 4,
+								_1: {
+									ctor: '::',
+									_0: 9,
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						A2(
+							_exercism$xelm$Accumulate$accumulate,
+							_exercism$xelm$Main$square,
+							{
+								ctor: '::',
+								_0: 1,
+								_1: {
+									ctor: '::',
+									_0: 2,
+									_1: {
+										ctor: '::',
+										_0: 3,
+										_1: {ctor: '[]'}
+									}
+								}
+							}));
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_community$elm_test$Test$test,
+					'toUpper Accumulate',
+					function (_p4) {
+						var _p5 = _p4;
+						return A2(
+							_elm_community$elm_test$Expect$equal,
+							{
+								ctor: '::',
+								_0: 'HELLO',
+								_1: {
+									ctor: '::',
+									_0: 'WORLD',
+									_1: {ctor: '[]'}
+								}
+							},
+							A2(
+								_exercism$xelm$Accumulate$accumulate,
+								_elm_lang$core$String$toUpper,
+								{
+									ctor: '::',
+									_0: 'hello',
+									_1: {
+										ctor: '::',
+										_0: 'world',
+										_1: {ctor: '[]'}
+									}
+								}));
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_community$elm_test$Test$test,
+						'reverse Accumulate',
+						function (_p6) {
+							var _p7 = _p6;
+							return A2(
+								_elm_community$elm_test$Expect$equal,
+								{
+									ctor: '::',
+									_0: 'olleh',
+									_1: {
+										ctor: '::',
+										_0: 'dlrow',
+										_1: {ctor: '[]'}
+									}
+								},
+								A2(
+									_exercism$xelm$Accumulate$accumulate,
+									_elm_lang$core$String$reverse,
+									{
+										ctor: '::',
+										_0: 'hello',
+										_1: {
+											ctor: '::',
+											_0: 'world',
+											_1: {ctor: '[]'}
+										}
+									}));
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
+var _exercism$xelm$Main$emit = _elm_lang$core$Native_Platform.outgoingPort(
+	'emit',
+	function (v) {
+		return [v._0, v._1];
+	});
+var _exercism$xelm$Main$main = A2(_rtfeldman$node_test_runner$Test_Runner_Node$run, _exercism$xelm$Main$emit, _exercism$xelm$Main$tests)(_elm_lang$core$Json_Decode$value);
