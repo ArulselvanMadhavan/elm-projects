@@ -1,10 +1,13 @@
 module PhotoGroove exposing (main)
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (id, class, src, type_, classList, name, title)
 import Html.Events exposing (onClick)
 import Array exposing (Array)
 import Random
+import Http
+import Json.Decode exposing (string, int, list, Decoder)
+import Json.Decode.Pipeline exposing (decode, required, optional)
 
 
 urlPrefix : String
@@ -13,12 +16,16 @@ urlPrefix =
 
 
 type alias Photo =
-    { url : String }
+    { url : String
+    , size : Int
+    , title : String
+    }
 
 
 type alias Model =
     { photos : List Photo
-    , selectedUrl : String
+    , selectedUrl : Maybe String
+    , loadingError : Maybe String
     , chosenSize : ThumbnailSize
     }
 
@@ -28,6 +35,7 @@ type Msg
     | SelectByIndex Int
     | SurpriseMe
     | SetSize ThumbnailSize
+    | LoadPhotos (Result Http.Error (List Photo))
 
 
 type ThumbnailSize
@@ -36,46 +44,46 @@ type ThumbnailSize
     | Large
 
 
+photoDecoder : Decoder Photo
+photoDecoder =
+    decode Photo
+        |> required "url" string
+        |> required "size" int
+        |> optional "title" string "(untitled)"
+
+
 initialModel : Model
 initialModel =
-    { photos =
-        [ { url = "1.jpeg" }
-        , { url = "2.jpeg" }
-        , { url = "3.jpeg" }
-        ]
-    , selectedUrl = "1.jpeg"
+    { photos = []
+    , selectedUrl = Nothing
+    , loadingError = Nothing
     , chosenSize = Small
     }
 
 
-getPhotoUrl : Int -> String
-getPhotoUrl index =
-    case Array.get index photoArray of
-        Just photo ->
-            photo.url
-
-        Nothing ->
-            ""
-
-
-randomPhotos : Random.Generator Int
-randomPhotos =
-    Random.int 0 (Array.length photoArray - 1)
-
-
-photoArray : Array Photo
-photoArray =
-    Array.fromList initialModel.photos
-
-
-viewThumbnail : String -> Photo -> Html Msg
+viewThumbnail : Maybe String -> Photo -> Html Msg
 viewThumbnail selectedUrl thumbnail =
     img
         [ src (urlPrefix ++ thumbnail.url)
-        , classList [ ( "selected", selectedUrl == thumbnail.url ) ]
+        , title (thumbnail.title ++ "[" ++ toString thumbnail.size ++ "]KB")
+        , classList [ ( "selected", selectedUrl == Just thumbnail.url ) ]
         , onClick (SelectByUrl thumbnail.url)
         ]
         []
+
+
+viewLarge : Maybe String -> Html Msg
+viewLarge url =
+    case url of
+        Nothing ->
+            text ""
+
+        Just val ->
+            img
+                [ class "large"
+                , src (urlPrefix ++ "large/" ++ val)
+                ]
+                []
 
 
 viewSizeChooser : ThumbnailSize -> Html Msg
@@ -116,35 +124,91 @@ view model =
             (List.map viewSizeChooser [ Small, Medium, Large ])
         , div [ id "thumbnails", class (sizeToString model.chosenSize) ]
             (List.map (viewThumbnail model.selectedUrl) model.photos)
-        , img
-            [ class "large"
-            , src (urlPrefix ++ "large/" ++ model.selectedUrl)
-            ]
-            []
+        , viewLarge model.selectedUrl
         ]
+
+
+handleSelectByIndex : Int -> Model -> ( Model, Cmd Msg )
+handleSelectByIndex index model =
+    let
+        newSelectedUrl : Maybe String
+        newSelectedUrl =
+            model.photos
+                |> Array.fromList
+                |> Array.get index
+                |> Maybe.map .url
+    in
+        ( { model | selectedUrl = newSelectedUrl }, Cmd.none )
+
+
+handleSurpriseMe : Model -> ( Model, Cmd Msg )
+handleSurpriseMe model =
+    let
+        randomPhotos =
+            Random.int 0 ((List.length model.photos) - 1)
+    in
+        ( model, Random.generate SelectByIndex randomPhotos )
+
+
+handleLoadPhotos : Result Http.Error (List Photo) -> Model -> ( Model, Cmd Msg )
+handleLoadPhotos result model =
+    case result of
+        Ok photos ->
+            ( { model
+                | photos = photos
+                , selectedUrl = Maybe.map .url (List.head photos)
+              }
+            , Cmd.none
+            )
+
+        Err _ ->
+            ( { model | loadingError = Just "Try restarting the server" }, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         SelectByIndex index ->
-            ( { model | selectedUrl = getPhotoUrl index }, Cmd.none )
+            handleSelectByIndex index model
 
         SelectByUrl url ->
-            ( { model | selectedUrl = url }, Cmd.none )
+            ( { model | selectedUrl = Just url }, Cmd.none )
 
         SurpriseMe ->
-            ( model, Random.generate SelectByIndex randomPhotos )
+            handleSurpriseMe model
 
         SetSize size ->
             ( { model | chosenSize = size }, Cmd.none )
+
+        LoadPhotos result ->
+            handleLoadPhotos result model
+
+
+initialCmd : Cmd Msg
+initialCmd =
+    list photoDecoder
+        |> Http.get "http://elm-in-action.com/photos/list.json"
+        |> Http.send LoadPhotos
+
+
+viewOrError : Model -> Html Msg
+viewOrError model =
+    case model.loadingError of
+        Nothing ->
+            view model
+
+        Just err ->
+            div [ class "error-message" ]
+                [ h1 [] [ text "Photo Groove" ]
+                , p [] [ text err ]
+                ]
 
 
 main : Program Never Model Msg
 main =
     Html.program
-        { init = ( initialModel, Cmd.none )
-        , view = view
+        { init = ( initialModel, initialCmd )
+        , view = viewOrError
         , update = update
-        , subscriptions = (\model -> Sub.none)
+        , subscriptions = (\_ -> Sub.none)
         }
