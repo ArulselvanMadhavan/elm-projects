@@ -1,11 +1,11 @@
-module PhotoGroove exposing (main)
+port module PhotoGroove exposing (main)
 
 import Html exposing (..)
 import Html.Attributes as Attr exposing (id, class, src, type_, classList, name, title)
 import Array exposing (Array)
 import Random
 import Http
-import Json.Decode exposing (string, int, list, Decoder, at)
+import Json.Decode exposing (string, int, list, Decoder, at, Value)
 import Json.Decode.Pipeline exposing (decode, required, optional)
 import Html.Events exposing (onClick, on)
 
@@ -13,6 +13,12 @@ import Html.Events exposing (onClick, on)
 urlPrefix : String
 urlPrefix =
     "http://elm-in-action.com/"
+
+
+type alias FilterOptions =
+    { url : String
+    , filters : List { name : String, amount : Float }
+    }
 
 
 type alias Photo =
@@ -30,6 +36,7 @@ type alias Model =
     , hue : Int
     , ripple : Int
     , noise : Int
+    , status : String
     }
 
 
@@ -42,6 +49,7 @@ type Msg
     | SetHue Int
     | SetRipple Int
     | SetNoise Int
+    | SetStatus String
 
 
 type ThumbnailSize
@@ -67,6 +75,7 @@ initialModel =
     , hue = 0
     , ripple = 0
     , noise = 0
+    , status = ""
     }
 
 
@@ -88,10 +97,7 @@ viewLarge url =
             text ""
 
         Just val ->
-            img
-                [ class "large"
-                , src (urlPrefix ++ "large/" ++ val)
-                ]
+            canvas [ id "main-canvas", class "large" ]
                 []
 
 
@@ -137,6 +143,9 @@ view model =
         , button
             [ onClick SurpriseMe ]
             [ text "Surprise Me" ]
+        , div
+            [ class "status" ]
+            [ text model.status ]
         , div [ class "filters" ]
             [ viewFilter "Hue" SetHue model.hue
             , viewFilter "Ripple" SetRipple model.ripple
@@ -161,7 +170,7 @@ handleSelectByIndex index model =
                 |> Array.get index
                 |> Maybe.map .url
     in
-        ( { model | selectedUrl = newSelectedUrl }, Cmd.none )
+        applyFilters { model | selectedUrl = newSelectedUrl }
 
 
 handleSurpriseMe : Model -> ( Model, Cmd Msg )
@@ -177,15 +186,34 @@ handleLoadPhotos : Result Http.Error (List Photo) -> Model -> ( Model, Cmd Msg )
 handleLoadPhotos result model =
     case result of
         Ok photos ->
-            ( { model
-                | photos = photos
-                , selectedUrl = Maybe.map .url (List.head photos)
-              }
-            , Cmd.none
-            )
+            applyFilters
+                { model
+                    | photos = photos
+                    , selectedUrl = Maybe.map .url (List.head photos)
+                }
 
         Err _ ->
             ( { model | loadingError = Just "Try restarting the server" }, Cmd.none )
+
+
+applyFilters : Model -> ( Model, Cmd Msg )
+applyFilters model =
+    case model.selectedUrl of
+        Just selectedUrl ->
+            let
+                filters =
+                    [ { name = "Hue", amount = toFloat model.hue / 11 }
+                    , { name = "Ripple", amount = toFloat model.ripple / 11 }
+                    , { name = "Noise", amount = toFloat model.noise / 11 }
+                    ]
+
+                url =
+                    urlPrefix ++ "large/" ++ selectedUrl
+            in
+                ( model, setFilters { url = url, filters = filters } )
+
+        Nothing ->
+            ( model, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -194,8 +222,8 @@ update msg model =
         SelectByIndex index ->
             handleSelectByIndex index model
 
-        SelectByUrl url ->
-            ( { model | selectedUrl = Just url }, Cmd.none )
+        SelectByUrl selectedUrl ->
+            applyFilters { model | selectedUrl = Just selectedUrl }
 
         SurpriseMe ->
             handleSurpriseMe model
@@ -214,6 +242,9 @@ update msg model =
 
         SetNoise val ->
             ( { model | noise = val }, Cmd.none )
+
+        SetStatus val ->
+            ( { model | status = val }, Cmd.none )
 
 
 onImmeditateValuChange : (Int -> Msg) -> Attribute Msg
@@ -248,11 +279,26 @@ paperSlider =
     node "paper-slider"
 
 
-main : Program Never Model Msg
+init : Float -> ( Model, Cmd Msg )
+init flags =
+    let
+        status =
+            "Initializing Pasta v" ++ toString flags
+    in
+        ( { initialModel | status = status }, initialCmd )
+
+
+main : Program Float Model Msg
 main =
-    Html.program
-        { init = ( initialModel, initialCmd )
+    Html.programWithFlags
+        { init = init
         , view = viewOrError
         , update = update
-        , subscriptions = (\_ -> Sub.none)
+        , subscriptions = (\_ -> statusChanges SetStatus)
         }
+
+
+port setFilters : FilterOptions -> Cmd msg
+
+
+port statusChanges : (String -> msg) -> Sub msg
